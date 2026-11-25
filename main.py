@@ -12,14 +12,19 @@ ENTRY = "One star: your planet made me photograph my dinner before eating it, ch
 MAX_CHARS = 200
 
 
+def check_length(text):
+    """Validate the entry length: at most MAX_CHARS characters."""
+    if len(text) > MAX_CHARS:
+        raise ValueError("entry is %d chars, over the 200-char limit" % len(text))
+
+
 def check_entry(text):
     """Validate the entry: 1-200 chars, one sentence, no edge whitespace."""
     if not text:
         raise ValueError("entry must not be empty")
     if text != text.strip():
         raise ValueError("entry must not have leading or trailing whitespace")
-    if len(text) > MAX_CHARS:
-        raise ValueError("entry is %d chars, over the 200-char limit" % len(text))
+    check_length(text)
     if not text.endswith("."):
         raise ValueError("entry must end with a period")
     body = text[:-1]
